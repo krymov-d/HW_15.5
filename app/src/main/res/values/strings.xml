@@ -2,4 +2,7 @@
     <string name="app_name">HW_15.5</string>
     <string name="tv_convertor">Convertor</string>
     <string name="future_menu">Future Menu</string>
+    <string name="_0">0</string>
+    <string name="kz">Тенге, Казахстан</string>
+    <string name="usa">Доллары, США</string>
 </resources>
