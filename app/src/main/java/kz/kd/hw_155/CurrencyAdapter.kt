@@ -1,45 +1,51 @@
 package kz.kd.hw_155
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
-import java.util.Currency
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class CurrencyAdapter(
-    private val clickListener: (name: String) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val data = mutableListOf<String>()
+class CurrencyAdapter(private val layoutInflater: LayoutInflater):RecyclerView.Adapter<ViewHolder>() {
+    private val currencyList: MutableList<Currency> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return CurrencyViewHolder(inflater, parent)
+    override fun getItemViewType(position: Int): Int {
+        return if (position == currencyList.size) {
+            1
+        } else {
+            0
+        }
     }
 
-    override fun getItemCount(): Int = data.size
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as CurrencyViewHolder).bind(data[position], clickListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutId = if (viewType == 1) {
+            R.layout.btn_add
+        } else {
+            R.layout.card_currency
+        }
+        val view = layoutInflater.inflate(layoutId, parent, false)
+        val viewHolder = if (viewType == 1) {
+            ButtonViewHolder(view)
+        } else {
+            CurrencyViewHolder(view)
+        }
+        return viewHolder
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setItems(list: List<String>) {
-        data.clear()
-        data.addAll(list)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currency = currencyList[position]
+        if (holder is CurrencyViewHolder) {
+            holder.bind(currency)
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return currencyList.size + 1
+    }
+
+    fun updateDataSet(newDataSet: List<Currency>) {
+        currencyList.clear()
+        currencyList.addAll(newDataSet)
         notifyDataSetChanged()
     }
 
-    private class CurrencyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.convertor_kz, parent, false)) {
-        private val nameTextView = itemView.findViewById<TextView>(R.id.tv_sum)
-
-        fun bind(item: String, clickListener: (name: String) -> Unit) {
-            nameTextView.text = item
-            nameTextView.setOnClickListener {
-                clickListener(item)
-            }
-        }
-    }
 }
