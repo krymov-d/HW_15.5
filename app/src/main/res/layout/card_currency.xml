@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_l_sum"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -16,6 +17,9 @@
         app:boxStrokeColor="@color/btn_text_color"
         app:boxStrokeWidthFocused="2dp"
         app:hintTextColor="@color/btn_text_color"
+        android:textColorHint="@color/btn_text_color"
+        app:hintAnimationEnabled="true"
+        app:expandedHintEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/tv_description"
         app:layout_constraintEnd_toStartOf="@id/iv_flag"
         app:layout_constraintHorizontal_weight="1"
@@ -26,6 +30,7 @@
             android:id="@+id/et_it_sum"
             android:layout_width="match_parent"
             android:layout_height="52dp"
+            android:hint="Sum"
             tools:hint="@string/usa" />
     </com.google.android.material.textfield.TextInputLayout>
 

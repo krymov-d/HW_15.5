@@ -1,5 +1,6 @@
 package kz.kd.hw_155
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ class CurrencyAdapter(private val layoutInflater: LayoutInflater):RecyclerView.A
     private val currencyList: MutableList<Currency> = mutableListOf()
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == currencyList.size) {
+        return if (position + 1 == currencyList.size) {
             1
         } else {
             0
@@ -39,9 +40,10 @@ class CurrencyAdapter(private val layoutInflater: LayoutInflater):RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return currencyList.size + 1
+        return currencyList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateDataSet(newDataSet: List<Currency>) {
         currencyList.clear()
         currencyList.addAll(newDataSet)
